@@ -1,36 +1,40 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MagicBox<T> {
 
     private final String nameBox;
-    private final T[] items;
+    private final List<T> items;
+    private final int maxItems;
     private final Random random = new Random();
 
     public MagicBox(String nameBox, int maxItems) {
         this.nameBox = nameBox;
-        this.items = (T[]) new Object[maxItems];
-
+        this.items = new ArrayList<>(maxItems);
+        this.maxItems = maxItems;
     }
 
     public boolean add(T item) {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
-                items[i] = item;
-                return true;
-            }
+        if (items.size() < maxItems) {
+            items.add(item);
+            return true;
+        } else {
+            System.out.println("MagicBox \"" + getNameBox() + "\" заполнена!");
+            return false;
         }
-        System.out.println("MagicBox \"" + getNameBox() + "\" заполнена!");
-        return false;
     }
 
     public T pick() {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
-                throw new BoxNotFullException(getNameBox(), items.length - i);
-            }
+        if (items.size() < maxItems) {
+            throw new BoxNotFullException(getNameBox(), maxItems - items.size());
         }
-        return items[random.nextInt(items.length)];
+        System.out.print("Случайный выбор: ");
+        return items.get(random.nextInt(items.size()));
+    }
+
+    public List<T> getItems() {
+        return items;
     }
 
     public Random getRandom() {
@@ -43,6 +47,6 @@ public class MagicBox<T> {
 
     @Override
     public String toString() {
-        return Arrays.toString(items);
+        return "MagicBox \"" + getNameBox() + "\" -> " + items + "; MAX_SIZE = " + maxItems + ".";
     }
 }
