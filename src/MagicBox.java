@@ -33,6 +33,10 @@ public class MagicBox<T> {
         return items[random.nextInt(items.length)];
     }
 
+    public Random getRandom() {
+        return random;
+    }
+
     public String getNameBox() {
         return nameBox;
     }
