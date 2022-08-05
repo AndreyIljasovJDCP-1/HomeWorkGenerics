@@ -5,7 +5,7 @@ public class MagicBox<T> {
 
     private final String nameBox;
     private final T[] items;
-    Random random = new Random();
+    private final Random random = new Random();
 
     public MagicBox(String nameBox, int maxItems) {
         this.nameBox = nameBox;
