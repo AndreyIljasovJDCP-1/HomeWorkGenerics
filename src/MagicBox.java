@@ -28,7 +28,7 @@ public class MagicBox<T> {
 
         for (int i = 0; i < items.length; i++) {
             if (items[i] == null) {
-                throw new RuntimeException("MagicBox " + getNameBox() + " не заполнена. Надо заполнить еще " + (items.length - i) + " яч.");
+                throw new RuntimeException("MagicBox \"" + getNameBox() + "\" не заполнена. Надо заполнить еще " + (items.length - i) + " яч.");
             }
         }
         return items[random.nextInt(items.length)];
