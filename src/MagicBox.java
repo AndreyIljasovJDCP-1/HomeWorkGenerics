@@ -5,7 +5,6 @@ public class MagicBox<T> {
 
     private final String nameBox;
     private final T[] items;
-    private final Random random = new Random();
 
     public MagicBox(String nameBox, int maxItems) {
         this.nameBox = nameBox;
@@ -25,16 +24,14 @@ public class MagicBox<T> {
     }
 
     public T pick() {
+        Random random = new Random();
+
         for (int i = 0; i < items.length; i++) {
             if (items[i] == null) {
-                throw new BoxNotFullException(getNameBox(), items.length - i);
+                throw new RuntimeException("MagicBox " + getNameBox() + " не заполнена. Надо заполнить еще " + (items.length - i) + " яч.");
             }
         }
         return items[random.nextInt(items.length)];
-    }
-
-    public Random getRandom() {
-        return random;
     }
 
     public String getNameBox() {
